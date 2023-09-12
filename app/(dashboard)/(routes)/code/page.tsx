@@ -16,13 +16,13 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { formSchema } from "./constants";
-import { ChatCompletionRequestMessage } from "openai";
 import { cn } from "@/lib/utils";
+import OpenAI from "openai";
 import ReactMarkdown from "react-markdown";
 
 const CodePage = () => {
    const router = useRouter();
-   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+   const [messages, setMessages] = useState<OpenAI.Chat.Completions.ChatCompletionMessageParam[]>([]);
 
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
@@ -35,7 +35,7 @@ const CodePage = () => {
 
    const onSubmit = async (values: z.infer<typeof formSchema>) => {
       try {
-         const userMessage: ChatCompletionRequestMessage = {
+         const userMessage: OpenAI.Chat.Completions.ChatCompletionMessageParam = {
             role: "user",
             content: values.prompt,
          };
@@ -109,7 +109,7 @@ const CodePage = () => {
                        className={cn("p-8 w-full flex items-start gap-x-8 rounded-lg",
                        message.role === "user" ? "bg-white border border-black/10" : "bg-muted" )}
                      >
-                        {message.rol === "user" ? <UserAvatar /> : <BotAvatar />}
+                        {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
                         <ReactMarkdown
                            components={{
                               pre: ({ node, ...props }) => (
