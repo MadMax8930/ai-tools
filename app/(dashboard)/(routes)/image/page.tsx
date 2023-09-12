@@ -17,8 +17,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { amountOptions, formSchema, resolutionOptions } from "./constants";
-import { cn } from "@/lib/utils";
-import OpenAI from "openai";
 
 const ImagePage = () => {
    const router = useRouter();
